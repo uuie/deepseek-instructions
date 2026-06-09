@@ -1,30 +1,31 @@
 {
-  "name": "deepseek-instructions",
-  "id": "deepseek-instructions",
+  "name": "moe-instructions",
+  "id": "moe-instructions",
   "owner": {
     "name": "uuie"
   },
   "metadata": {
-    "description": "MoE-aware coding skill and code-assistant instructions that stabilize expert routing for DeepSeek and other Mixture-of-Experts models",
+    "description": "MoE-aware coding skill and code-assistant instructions that stabilize expert routing for Mixture-of-Experts models (Qwen, GLM, DeepSeek, Mixtral, local MoE)",
     "version": "1.0.0"
   },
   "plugins": [
     {
-      "name": "deepseek-moe-coding",
+      "name": "moe-coding",
       "source": "./",
-      "description": "Stabilizes MoE expert routing via role anchors, consistent vocabulary, single-domain turns, and structured prompts, then enforces impact-mapping and per-change verification. For DeepSeek, Qwen, GLM, and local MoE models.",
+      "description": "Stabilizes MoE expert routing via role anchors, consistent vocabulary, single-domain turns, and structured prompts, then enforces impact-mapping and per-change verification. For any Mixture-of-Experts model (Qwen, GLM, DeepSeek, Mixtral, local MoE).",
       "version": "1.0.0",
       "author": {
         "name": "uuie"
       },
       "keywords": [
-        "deepseek",
         "moe",
         "mixture-of-experts",
         "coding",
         "expert-routing",
         "prompting",
-        "guidelines"
+        "guidelines",
+        "qwen",
+        "deepseek"
       ],
       "category": "workflow"
     }

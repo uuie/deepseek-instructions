@@ -1,18 +1,19 @@
 {
-  "name": "deepseek-moe-coding",
-  "description": "MoE-aware coding discipline: stabilize expert routing (role anchors, consistent vocabulary, single-domain turns, structured prompts), externalize global state (impact-mapping, plan files), and verify every change. For DeepSeek, Qwen, GLM, and local Mixture-of-Experts models.",
+  "name": "moe-coding",
+  "description": "MoE-aware coding discipline: stabilize expert routing (role anchors, consistent vocabulary, single-domain turns, structured prompts), externalize global state (impact-mapping, plan files), and verify every change. For any Mixture-of-Experts model (Qwen, GLM, DeepSeek, Mixtral, local MoE).",
   "version": "1.0.0",
   "author": {
     "name": "uuie"
   },
   "license": "MIT",
   "keywords": [
-    "deepseek",
     "moe",
     "mixture-of-experts",
     "coding",
     "expert-routing",
-    "prompting"
+    "prompting",
+    "qwen",
+    "deepseek"
   ],
-  "skills": ["./skills/deepseek-moe-coding"]
+  "skills": ["./skills/moe-coding"]
 }

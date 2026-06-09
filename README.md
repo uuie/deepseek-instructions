@@ -1,9 +1,9 @@
-# deepseek-instructions
+# moe-coding
 
-**MoE-aware coding skill + code-assistant instructions for DeepSeek and other
-Mixture-of-Experts models** (Qwen, GLM, local MoE).
+**MoE-aware coding skill + code-assistant instructions for Mixture-of-Experts models**
+(Qwen, GLM, DeepSeek, Mixtral, local MoE).
 
-Most "weak model" coding pain with DeepSeek isn't low intelligence — it's **unstable
+Most "weak model" coding pain with MoE models isn't low intelligence — it's **unstable
 expert routing**. In an MoE model a lightweight router picks a small subset of "experts"
 for each token based on your *phrasing*. Paraphrase a concept, mix domains, or drift your
 wording, and a *different* set of experts takes over mid-task — so it forgets decisions,
@@ -14,9 +14,8 @@ This repo gives you two layers that fix that:
 
 1. **Code Assistant Instructions** — an always-on block that re-anchors routing every turn
    (role + canonical vocabulary + one-domain-per-turn + map-before-edit + verify).
-2. **`deepseek-moe-coding` skill** — on-demand depth: routing stabilization, role-anchor
-   table for software-dev concerns, state externalization (impact maps, plan files), and a
-   done gate.
+2. **`moe-coding` skill** — on-demand depth: routing stabilization, role-anchor table for
+   software-dev concerns, state externalization (impact maps, plan files), and a done gate.
 
 ## Why MoE changes the game
 
@@ -27,14 +26,20 @@ This repo gives you two layers that fix that:
 | Inconsistent instruction following | Paraphrasing activates different experts | Stable, structured prompt shape |
 | Weaker than expected on a domain | Wrong experts activated | Front-loaded role + tech keywords |
 
+> Works with any MoE model. DeepSeek is a common example, but the same routing dynamics
+> apply to Qwen, GLM, Mixtral, Llama-4, and local MoE builds.
+
 ## Install
 
 ### Claude Code (plugin)
 
 ```
 /plugin marketplace add uuie/deepseek-instructions
-/plugin install deepseek-moe-coding@deepseek-instructions
+/plugin install moe-coding@moe-instructions
 ```
+
+> The GitHub repo is currently named `deepseek-instructions`; the marketplace it exposes is
+> `moe-instructions`. If you rename the repo, update the `marketplace add` path accordingly.
 
 Then add the always-on layer to your `~/.claude/CLAUDE.md`:
 
@@ -54,8 +59,8 @@ persistent instruction file and (optionally) the skill into its skills directory
 - Instructions → see the mapping table in
   [`instructions/code-assistant-instructions.md`](instructions/code-assistant-instructions.md)
   (Copilot CLI, Gemini CLI, Codex/`AGENTS.md`, Cursor).
-- Skill → copy [`skills/deepseek-moe-coding/`](skills/deepseek-moe-coding) into your
-  agent's skills folder (e.g. `~/.claude/skills/`).
+- Skill → copy [`skills/moe-coding/`](skills/moe-coding) into your agent's skills folder
+  (e.g. `~/.claude/skills/`).
 
 ## What's inside
 
@@ -64,7 +69,7 @@ persistent instruction file and (optionally) the skill into its skills directory
   marketplace.json          # marketplace manifest (for `/plugin marketplace add`)
   plugin.json               # plugin manifest (registers the skill)
 skills/
-  deepseek-moe-coding/
+  moe-coding/
     SKILL.md                # the on-demand MoE coding skill
 instructions/
   code-assistant-instructions.md   # portable always-on block + per-agent mappings

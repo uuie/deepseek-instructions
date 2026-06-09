@@ -1,13 +1,14 @@
 ---
-name: deepseek-moe-coding
-description: Use for any coding, refactoring, or debugging task when running on a Mixture-of-Experts model (DeepSeek, Qwen, GLM, local MoE). Stabilizes expert routing through specific role anchors, consistent vocabulary, keyword anchoring, single-domain turns, and structured prompts, then enforces impact-mapping and per-change verification. Compensates for MoE routing fragility that causes inconsistent instruction-following and locally-correct-but-globally-broken edits.
+name: moe-coding
+description: Use for any coding, refactoring, or debugging task when running on a Mixture-of-Experts (MoE) model (Qwen, GLM, DeepSeek, Mixtral, local MoE). Stabilizes expert routing through specific role anchors, consistent vocabulary, keyword anchoring, single-domain turns, and structured prompts, then enforces impact-mapping and per-change verification. Compensates for MoE routing fragility that causes inconsistent instruction-following and locally-correct-but-globally-broken edits.
 ---
 
-# DeepSeek / MoE Coding Discipline
+# MoE Coding Discipline
 
 ## The root cause (read this first)
 
-DeepSeek and similar models are **Mixture-of-Experts (MoE)**. For each token a lightweight
+Models such as Qwen, GLM, DeepSeek, Mixtral, and many local models are
+**Mixture-of-Experts (MoE)**. For each token a lightweight
 router activates a small subset of "experts" (sub-networks). The router keys heavily on
 **surface phrasing — keywords, tokens, n-grams.**
 
