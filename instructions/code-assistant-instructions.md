@@ -40,5 +40,6 @@ gate), invoke the `moe-coding` skill.
 | Codex / OpenAI agents | `AGENTS.md` at repo root | |
 | Cursor | `.cursor/rules/*.mdc` | |
 
-For Claude Code you can instead install the plugin (below) to get the `moe-coding`
-skill, and `@`-import this file from your `CLAUDE.md` for the always-on layer.
+For Claude Code you can instead install the `moe-coding` plugin using the commands in the
+repository `README.md`, then `@`-import this file from your `CLAUDE.md` for the always-on
+layer.
