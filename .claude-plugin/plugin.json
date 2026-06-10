@@ -1,5 +1,5 @@
 {
-  "name": "moe-coding",
+  "name": "moe-execution",
   "description": "MoE-aware coding discipline: stabilize expert routing (role anchors, consistent vocabulary, single-domain turns, structured prompts), externalize global state (impact-mapping, plan files), and verify every change. For any Mixture-of-Experts model (Qwen, GLM, DeepSeek, Mixtral, local MoE).",
   "version": "1.0.0",
   "author": {
@@ -15,5 +15,8 @@
     "qwen",
     "deepseek"
   ],
-  "skills": ["./skills/moe-coding"]
+  "skills": [
+    "./skills/moe-execution",
+    "./skills/workflow-gate"
+  ]
 }

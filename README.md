@@ -1,4 +1,4 @@
-# moe-coding
+# moe-execution
 
 **MoE-aware coding skill + code-assistant instructions for Mixture-of-Experts models**
 (Qwen, GLM, DeepSeek, Mixtral, local MoE).
@@ -10,12 +10,20 @@ wording, and a *different* set of experts takes over mid-task — so it forgets 
 produces locally-correct-but-globally-broken edits, and follows instructions
 inconsistently.
 
-This repo gives you two layers that fix that:
+This repo gives you three layers that fix that:
 
 1. **Code Assistant Instructions** — an always-on block that re-anchors routing every turn
    (role + canonical vocabulary + one-domain-per-turn + map-before-edit + verify).
-2. **`moe-coding` skill** — on-demand depth: routing stabilization, role-anchor table for
+2. **`moe-execution` skill** — on-demand depth: routing stabilization, role-anchor table for
    software-dev concerns, state externalization (impact maps, plan files), and a done gate.
+3. **`workflow-gate` skill** — workflow bootstrap (`workflow-gate:init`) and mandatory
+   interface blast-radius discipline (`workflow-gate:impact-analysis`), then handoff to
+   `moe-execution` for execution.
+
+Recommended execution path (non-init):
+1. planning (`brainstorming` / `writing-plans`)
+2. `workflow-gate:impact-analysis` for interface-level changes
+3. `moe-execution` for implementation/refactor/debug
 
 ## Why MoE changes the game
 
@@ -35,7 +43,7 @@ This repo gives you two layers that fix that:
 
 ```
 /plugin marketplace add uuie/deepseek-instructions
-/plugin install moe-coding@moe-instructions
+/plugin install moe-execution@moe-instructions
 ```
 
 > The GitHub repo is currently named `deepseek-instructions`; the marketplace it exposes is
@@ -59,7 +67,7 @@ persistent instruction file and (optionally) the skill into its skills directory
 - Instructions → see the mapping table in
   [`instructions/code-assistant-instructions.md`](instructions/code-assistant-instructions.md)
   (Copilot CLI, Gemini CLI, Codex/`AGENTS.md`, Cursor).
-- Skill → copy [`skills/moe-coding/`](skills/moe-coding) into your agent's skills folder
+- Skill → copy [`skills/moe-execution/`](skills/moe-execution) into your agent's skills folder
   (e.g. `~/.claude/skills/`).
 
 ## What's inside
@@ -69,8 +77,12 @@ persistent instruction file and (optionally) the skill into its skills directory
   marketplace.json          # marketplace manifest (for `/plugin marketplace add`)
   plugin.json               # plugin manifest (registers the skill)
 skills/
-  moe-coding/
-    SKILL.md                # the on-demand MoE coding skill
+  moe-execution/
+    SKILL.md                # on-demand MoE execution skill
+  workflow-gate/
+    SKILL.md                # init + impact-analysis workflow skill
+    scripts/
+      init_engineering_workflow.py
 instructions/
   code-assistant-instructions.md   # portable always-on block + per-agent mappings
 ```

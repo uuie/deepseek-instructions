@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "moe-coding",
+      "name": "moe-execution",
       "source": "./",
       "description": "Stabilizes MoE expert routing via role anchors, consistent vocabulary, single-domain turns, and structured prompts, then enforces impact-mapping and per-change verification. For any Mixture-of-Experts model (Qwen, GLM, DeepSeek, Mixtral, local MoE).",
       "version": "1.0.0",

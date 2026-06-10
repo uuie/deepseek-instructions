@@ -1,9 +1,18 @@
 ---
-name: moe-coding
-description: Use for any coding, refactoring, or debugging task when running on a Mixture-of-Experts (MoE) model (Qwen, GLM, DeepSeek, Mixtral, local MoE). Stabilizes expert routing through specific role anchors, consistent vocabulary, keyword anchoring, single-domain turns, and structured prompts, then enforces impact-mapping and per-change verification. Compensates for MoE routing fragility that causes inconsistent instruction-following and locally-correct-but-globally-broken edits.
+name: moe-execution
+description: Use for coding, refactoring, or debugging execution on a Mixture-of-Experts (MoE) model (Qwen, GLM, DeepSeek, Mixtral, local MoE), after workflow gating. Stabilize expert routing through role anchors, consistent vocabulary, keyword anchoring, single-domain turns, and structured prompts, then enforce impact-mapping and per-change verification.
 ---
 
-# MoE Coding Discipline
+# MoE Execution Discipline
+
+## Workflow coupling
+
+Use this execution order:
+1. Use planning workflow first (`brainstorming` or `writing-plans`).
+2. If an interface/contract/schema change is involved, run `workflow-gate:impact-analysis` first.
+3. Use `moe-execution` for implementation/refactor/debug execution.
+
+`moe-execution` does not own project bootstrap or policy patching; it owns execution discipline.
 
 ## The root cause (read this first)
 
@@ -95,12 +104,13 @@ backstories add noise tokens that can mis-route.
 
 ## Part B — Externalize global state (compensate for per-token routing)
 
-### B1. MAP before any edit
-Before changing a symbol, list **every dependent** — callers, imports, exports, tests,
-type/interface definitions, config, fixtures, docs. Use LSP "find references" (gopls,
-typescript-lsp, etc.) when available, else `grep` the canonical name across the whole repo,
-not just the open file. Write the list down (response, TodoWrite, or the SQL `todos`
-table). Editing a symbol without this list produces a local-only fix — the #1 failure.
+### B1. MAP after gate decision
+After pre-change gating is complete, keep a working MAP of impacted dependents for execution safety.
+
+- For public API/interface/shared type/DB schema/exported signature (or high-fanout symbol) changes, require `workflow-gate:impact-analysis` first and use that blast-radius report as baseline.
+- For non-interface edits, map only the dependents needed to keep the current change safe and verifiable.
+- Use LSP "find references" (gopls, typescript-lsp, etc.) when available; otherwise `grep` the canonical name across the whole repo, not just the open file.
+- Write the MAP down (response, TodoWrite, or SQL `todos`) before implementation steps fan out.
 
 ### B2. Persist the plan to a file
 For multi-file work, write the impact MAP + an ordered list of tiny steps to `plan.md`
@@ -139,7 +149,7 @@ This skill adds the MoE-routing layer on top of, and defers detailed procedure t
 |---|---|
 | "I'll call it 'the parser' here, clearer" | Synonyms re-route experts. Use the one canonical name. |
 | "I'll batch these unrelated fixes in one turn" | Mixed domains scatter routing. One domain per turn. |
-| "I'll just edit this function" | Did you MAP its callers? If not, stop — local-only fix incoming. |
+| "I'll just edit this function" | Did you complete required gate + MAP dependents needed for this change? If not, stop. |
 | "It's obviously right" | MoE is confidently wrong under routing drift. Run the test. |
 | "The session's long but I remember the plan" | Anchors decayed. Re-anchor or reload from file. |
 | "Close enough, done" | Run the done gate. All boxes or not done. |
